@@ -16,13 +16,9 @@ build:
   # The steps that will be executed on build
   steps:
     - script:
-        code: export DB_PW='Testinstance123#'
+        name: export password
+        code: | 
+          export DB_PW='Testinstance123#'
+
     # A step that executes `npm install` command
     - npm-install
-
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
-    - script:
-        name: run the app
-        code: |
-          npm start
