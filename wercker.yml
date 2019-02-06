@@ -49,4 +49,4 @@ push-release:
         working-dir: /pipeline/source
         ports: $PORT
         env: PORT=$PORT
-        cmd: /bin/sh -c -- while true; do sleep 30; done; && npm start
+        cmd: npm start
