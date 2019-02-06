@@ -20,6 +20,11 @@ build:
         code: | 
           export DB_PW='Testinstance123#'
 
+    - script:
+        name: clean node
+        code: |
+          rm -rf node_modules/ && npm update
+          
     # A step that executes `npm install` command
     - npm-install
 
