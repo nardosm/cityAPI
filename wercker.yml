@@ -43,7 +43,8 @@ build:
    
 
 # push to OCIR
-# repo DOES NOT INCLUDE TAG, and container image is UBUNTU
+# repo DOES NOT INCLUDE TAG
+# updated registry
 push-release:
   steps:
     - internal/docker-push:
