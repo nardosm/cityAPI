@@ -23,6 +23,11 @@ build:
     # A step that executes `npm install` command
     - npm-install
 
+    - script:
+        name: clean node
+        code: |
+          rm -rf node_modules/ && npm update
+
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
     - script:
