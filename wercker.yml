@@ -1,7 +1,7 @@
 box: 
   id: node:latest
   ports: 
-    - "80"
+    - "3000"
 
 # just to test the node app locally
 dev:
