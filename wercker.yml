@@ -49,4 +49,4 @@ push-release:
         working-dir: /pipeline/source
         ports: $PORT
         env: PORT=$PORT
-        cmd: node app.js
+        cmd: npm start
