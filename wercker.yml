@@ -35,11 +35,10 @@ build:
     #    code: |
     #      node app.js
 
-    # test what happens if you don't run the app
     - script:
-        name:  do not run the app
+        name: run the app
         code: |
-           echo "node version $(node -v) running"
+           node app.js
 
    
 
