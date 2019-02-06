@@ -33,4 +33,4 @@ build:
     - script:
         name: run the app
         code: |
-          npm start
+          node app.js
