@@ -1,30 +1,68 @@
 box: 
   id: node:latest
   ports: 
-    - "8080"
+    - "3000"
 
 # just to test the node app locally
 dev:
   steps:
     - npm-install
     - internal/watch:
-        code: node app.js
+        code: node ./bin/www
         reload: true
 
 # Build definition
 build:
   # The steps that will be executed on build
   steps:
+
     - script:
-        code: export DB_PW='Testinstance123#'
+        name: clean node
+        code: |
+          rm -rf node_modules/ && npm update
     # A step that executes `npm install` command
     - npm-install
-    # A step that executes `npm test` command
-    - npm-test
 
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
     - script:
-        name: run the app
+        name: get node version
         code: |
-          npm start
+           node --version
+
+# build Dockerfile in repo, and push the image created to OCIR
+build-and-push:
+  steps:
+
+    - internal/docker-build:
+      dockerfile: Dockerfile
+      image-name: my-new-image
+
+    - internal/docker-push:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        repository: $DOCKER_REPO
+        registry: $DOCKER_REGISTRY
+        tag: ocir
+        working-dir: /pipeline/source
+        ports: $PORT
+        cmd: node ./bin/www
+
+# Add this new pipeline in Wercker 
+# Deploy from Oracle Container Registry to the Oracle Container Engine (Kubernetes)
+deploy-to-OKE:
+    box:
+        id: alpine
+        entrypoint: /bin/sh -c
+    steps:
+
+    - bash-template
+
+    - script:
+        name: "Visualise Kubernetes config"
+        code: cat kubernetes.yml
+
+    - kubectl:
+        name: deploy to kubernetes
+        server: $KUBERNETES_MASTER
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: apply -f kubernetes.yml
