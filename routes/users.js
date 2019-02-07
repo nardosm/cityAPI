@@ -4,9 +4,9 @@ const router = express.Router();
 const bcrypt = require(`bcrypt`);
 const saltRounds = 10;
 
-const mysql = require(`promise-mysql`);
+const rp = require(`request-promise-native`);
 
-const dbconfig = require(`../config/config`);
+//const dbconfig = require(`../config/config`);
 
 /* Create a new user. */
 router.post(`/`, (req, res) => {
@@ -19,7 +19,11 @@ router.post(`/`, (req, res) => {
   // Put the values into nice variables and normalize the data.
   const userName = req.body.userName.toLowerCase();
   const plainPassword = req.body.password;
-  const cityWorker = (req.body.cityWorker === true);
+  let cityWorker = 0;
+
+  if (req.body.cityWorker === true) {
+    cityWorker = 1;
+  }
 
   // Make a password hash, then do everything else inside the callback function.
   bcrypt.hash(plainPassword, saltRounds, async (err, hash) => {
@@ -30,29 +34,20 @@ router.post(`/`, (req, res) => {
     }
 
     try {
-      // Create the DB connection.
-      const conn = await mysql.createConnection(dbconfig.settings);
 
-      // Creating the query string outside the request just in case.
-      let checkUserString = `SELECT * FROM users WHERE user_name='${userName}'`;
-      // Now querying the DB to see if a user with that name already exists.
-      let userResult = await conn.query(checkUserString);
+      let connectionSettings = {
+        method: `POST`,
+        uri: `http://129.213.185.211/t/fn-metro-city/createUser`,
+        body: {
+          username: userName,
+          password: hash,
+          isCityStaff: cityWorker
+        },
+        json: true
+      };
 
-      // If the user already exists, send a 400 and tell them they've been bad.
-      if (userResult.length > 0) {
-        res.status(400).send(`User already exists.`);
-        conn.end();
-        return;
-      }
+      let insertResult = await rp(connectionSettings);
 
-      // Creating the insert string outside as well just in case.
-      let insertString = `INSERT INTO users (user_name, password, city_staff) VALUES ('${userName}','${hash}', ${cityWorker})`;
-      // Now we insert the new user into the DB
-      let insertResult = await conn.query(insertString);
-
-      // Close the DB connection...
-      conn.end();
-      // ...and send a 200 for success.
       res.status(200).send(insertResult);
 
     } catch (err) {

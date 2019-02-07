@@ -1,0 +1,35 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-flex-bar-center-absolute">
+  <div data-bind="visible: !isLoggedIn()" class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
+    <div>
+      <h1>City of Township Services</h1>
+      <br /><br />
+      <div>
+        <div>
+          <label for="text-input">User Name</label>
+          <input id="text-input" type="text" data-bind="ojComponent: {component: 'ojInputText', value: userName}" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" data-bind="ojComponent: {component: 'ojInputPassword', value: password}" />
+        </div>
+        <br />
+        <div class="oj-flex-bar ">
+          <div class="oj-flex-bar-middle">
+            <input id="inputButton" class="hk-xh-login-btn" type="button" data-bind="click: login, ojComponent: {component: 'ojButton', label: 'Login', chroming: 'full'}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div data-bind="visible: isLoggedIn" class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center"> -->
+  <div data-bind="visible: false" class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
+    <div style="width:150px;">
+      <input id="inputButton" type="button" class="hk-xh-login-btn" data-bind="click: logout, ojComponent: {component: 'ojButton', label: 'Logout', chroming: 'full'}" />
+    </div>
+  </div>
+</div>

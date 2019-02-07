@@ -23,6 +23,23 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `public`)));
 
+//
+// Set headers to allow CORS requests.
+//
+app.use((req, res, next) => {
+  res.setHeader(`Access-Control-Allow-Origin`, `*`);
+  res.setHeader(`Access-Control-Allow-Methods`, `GET, POST, OPTIONS, PUT, DELETE`);
+  res.setHeader(`Access-Control-Allow-Headers`, `X-Requested-With,Authorization,X-PINGOTHER, Content-Type`);
+  // Check if this is a preflight request. If so, send 200. Otherwise, pass it forward.
+  if (req.method === `OPTIONS`) {
+    //respond with 200
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+
 app.use(`/login`, loginRouter);
 app.use(`/users`, usersRouter); // For user account creation.
 app.use(`/utilitybill`, utilitybillRouter);

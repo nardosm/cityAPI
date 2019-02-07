@@ -5,9 +5,7 @@ const router = express.Router();
 
 const bcrypt = require(`bcrypt`);
 
-const mysql = require(`promise-mysql`);
-
-const dbconfig = require(`../config/config`);
+const rp = require(`request-promise-native`);
 
 /* Route to authenticate user. */
 router.post(`/`, async (req, res) => {
@@ -22,19 +20,23 @@ router.post(`/`, async (req, res) => {
   const password = req.body.password;
 
   try {
-    // Create the DB connection.
-    const conn = await mysql.createConnection(dbconfig.settings);
-
     // Declare the replyObj that will be used later. Putting it here for easiest scoping.
     let replyObj;
 
-    // Creating the query string outside the request just in case.
-    let checkUserString = `SELECT password, city_staff FROM users WHERE user_name='${userName}'`;
-    // Querying the DB to see if this user exists, and getting PW hash if they do.
-    let userResult = await conn.query(checkUserString);
+    // Create the connection settings for call to FN.
+    let connectionSettings = {
+      method: `POST`,
+      uri: `http://129.213.185.211/t/fn-metro-city/login`,
+      body: {
+        username: userName
+      },
+      json: true
+    };
 
-    // If user is not found, send 401 (not differentiating 401 and 404 for security reasons.)
-    if (userResult.length === 0) {
+    // Make the call to FN to get user data.
+    let userResult = await rp(connectionSettings);
+
+    if (userResult.message !== `Success`) {
       replyObj = {
         error: `Incorrect username/password combination.`
       };
@@ -43,14 +45,15 @@ router.post(`/`, async (req, res) => {
       return;
     }
 
+    userResult = JSON.parse(userResult.data);
+
     // Comparing user password to submitted password.
-    bcrypt.compare(password, userResult[0].password, (err, pass) => {
+    bcrypt.compare(password, userResult.PASSWORD, (err, pass) => {
       // Sending err if an err happened.
       if (err) {
         res.status(500).send(`Error authenticating user.\n`, err);
         return;
       }
-
 
       // If password doesn't verify, send 401.
       if (!pass) {
@@ -63,7 +66,7 @@ router.post(`/`, async (req, res) => {
       }
 
       // Send a different token if user is or isn't on the city staff.
-      if (userResult[0].city_staff) {
+      if (userResult.CITY_STAFF) {
         replyObj = {
           userToken: `aaaaa`
         };
@@ -75,8 +78,6 @@ router.post(`/`, async (req, res) => {
 
       // Finally, send the login success reply.
       res.setHeader(`Content-Type`, `application/json`);
-      replyObj.troubleshooting = req.headers;
-      replyObj.troubleshooting2 = req.body;
       res.status(200).send(replyObj);
 
     });

@@ -1,0 +1,60 @@
+<!--
+ Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+  <h1>Dashboard</h1>
+  <!-- This is the part of the demo for citizen view... -->
+  <div id="citizenView" class="demo-padding demo-container">
+    Welcome to our city portal, citizen. More information will be coming later.
+  </div>
+  <!-- This is the part of the demo for city employee view... -->
+  <div id="cityDemo" class="demo-padding demo-container">
+    <h3>City Staff View</h3>
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+
+      <div id='chart-container' class="oj-flex" style="text-align:center;">
+        <div style="min-width: 250px; width: 30%;">
+          <h2 data-bind="text: pie1Title"></h2>
+          <oj-chart id="pieChart1" type="pie" series="[[pieSeries1Value]]" animation-on-display="auto"
+            animation-on-data-change="auto" hidden-categories="{{hiddenCategoriesValue}}" highlighted-categories="{{highlightedCategoriesValue}}"
+            hover-behavior="dim" legend.rendered="off" style="width:100%;height:250px;">
+          </oj-chart>
+        </div>
+        <div style="min-width: 250px; width: 30%;">
+          <h2 data-bind="text: pie2Title"></h2>
+          <oj-chart id="pieChart2" type="pie" series="[[pieSeries2Value]]" animation-on-display="auto"
+            animation-on-data-change="auto" hidden-categories="{{hiddenCategoriesValue}}" highlighted-categories="{{highlightedCategoriesValue}}"
+            hover-behavior="dim" legend.rendered="off" style="width:100%;height:250px;">
+          </oj-chart>
+        </div>
+        <div style="min-width: 250px; width: 30%;">
+          <h2 data-bind="text: pie3Title"></h2>
+          <oj-chart id="pieChart3" type="pie" series="[[pieSeries3Value]]" animation-on-display="auto"
+            animation-on-data-change="auto" hidden-categories="{{hiddenCategoriesValue}}" highlighted-categories="{{highlightedCategoriesValue}}"
+            hover-behavior="dim" legend.rendered="off" style="width:100%;height:250px;">
+          </oj-chart>
+        </div>
+        <div style="min-width: 250px; width: 30%;">
+          <h2 data-bind="text: pie4Title"></h2>
+          <oj-chart id="pieChart4" type="pie" series="[[pieSeries4Value]]" animation-on-display="auto"
+            animation-on-data-change="auto" hidden-categories="{{hiddenCategoriesValue}}" highlighted-categories="{{highlightedCategoriesValue}}"
+            hover-behavior="dim" legend.rendered="off" style="width:100%;height:250px;">
+          </oj-chart>
+        </div>
+        <div style="min-width: 250px; width: 30%;">
+          <h2 data-bind="text: pie5Title"></h2>
+          <oj-chart id="pieChart5" type="pie" series="[[pieSeries5Value]]" animation-on-display="auto"
+            animation-on-data-change="auto" hidden-categories="{{hiddenCategoriesValue}}" highlighted-categories="{{highlightedCategoriesValue}}"
+            hover-behavior="dim" legend.rendered="off" style="width:100%;height:250px;">
+          </oj-chart>
+        </div>
+        <oj-legend id="legend1" aria-controls="pieChart1 pieChart2 pieChart3 pieChart4 pieChart5" orientation="horizontal"
+          sections="[[legendSections]]" halign="center" valign="middle" hidden-categories="{{hiddenCategoriesValue}}"
+          highlighted-categories="{{highlightedCategoriesValue}}" hover-behavior="dim" hide-and-show-behavior="on"
+          style="min-width: 250px; width:90%;height:200px;">
+        </oj-legend>
+      </div>
+    </div>
+  </div>
+</div>
