@@ -15,7 +15,7 @@ spec:
      containers:
      - name: cerner-kube
    # enter the path to your image, be sure to include the correct region prefix
-       image: ${DOCKER_REPO}:ocir
+       image: ${DOCKER_REPO}:${DOCKER_TAG}
        imagePullPolicy: Always
        ports:
        - containerPort: ${PORT}

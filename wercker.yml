@@ -21,7 +21,7 @@ build:
            node --version
 
 # build Dockerfile in repo, and push the image created to OCIR
-build-and-push:
+build-push-image:
   steps:
 
     - internal/docker-build:
@@ -33,7 +33,7 @@ build-and-push:
         password: $DOCKER_PASSWORD
         repository: $DOCKER_REPO
         registry: $DOCKER_REGISTRY
-        tag: ocir
+        tag: ${DOCKER_TAG}
         working-dir: /pipeline/source
         ports: $PORT
         cmd: node ./bin/www

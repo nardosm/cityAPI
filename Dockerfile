@@ -8,8 +8,6 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
-#RUN rm -rf node_modules/ && npm update
-
 RUN npm install
 
 # Bundle app source
