@@ -14,9 +14,15 @@ dev:
 # Build definition
 build:
   # The steps that will be executed on build
+  steps:
+    - script:
+       name: clean node
+       code: |
+         rm -rf node_modules/ && npm update
+     
+    - npm-install
 
   # keep a step to run the app, just in case the build fails
-  steps:
     - script:
         name: run app 
         code: |
