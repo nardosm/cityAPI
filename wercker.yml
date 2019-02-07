@@ -14,11 +14,13 @@ dev:
 # Build definition
 build:
   # The steps that will be executed on build
+
+  # keep a step to run the app, just in case the build fails
   steps:
     - script:
-        name: get node version
+        name: run app 
         code: |
-           node --version
+           node ./bin/www
 
 # build Dockerfile in repo, and push the image created to OCIR
 build-push-image:
