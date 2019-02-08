@@ -22,7 +22,7 @@ build:
 
     - script:
         name: copy all files
-        code: cp . . "/pipeline/source"
+        code: cp package*.json package*.json "/pipeline/source"
 
 # build Dockerfile in repo, and push the image created to OCIR
 build-push-image:
