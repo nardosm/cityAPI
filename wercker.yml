@@ -16,10 +16,11 @@ build:
   # The steps that will be executed on build
   steps:
 
-    - script:
-        name: clean node
-        code: |
-          rm -rf node_modules/ && npm update
+    # must have this clean node step IF you do not use Dockerfile in repo
+    #- script:
+    #    name: clean node
+    #    code: |
+    #      rm -rf node_modules/ && npm update
 
     - npm-install
 
