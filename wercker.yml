@@ -37,8 +37,7 @@ build-push-image:
         working-dir: /pipeline/source
         ports: $PORT
         cmd: node ./bin/www
-
-# Add this new pipeline in Wercker 
+ 
 # Deploy from Oracle Container Registry to the Oracle Container Engine (Kubernetes)
 deploy-to-OKE:
     box:
