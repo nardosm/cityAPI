@@ -15,14 +15,18 @@ dev:
 build:
   # The steps that will be executed on build
   steps:
+
+    - script:
+        name: clean node
+        code: |
+          rm -rf node_modules/ && npm update
+          
     - npm-install
-    
+
     - script:
         name: get node version
         code: |
            node --version 
-
-    
 
 # build Dockerfile in repo, and push the image created to OCIR
 build-push-image:
