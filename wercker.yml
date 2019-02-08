@@ -20,7 +20,7 @@ build:
         name: clean node
         code: |
           rm -rf node_modules/ && npm update
-          
+
     - npm-install
 
     - script:
@@ -32,7 +32,7 @@ build:
 build-push-image:
   steps:
 
-    #
+    # Uncomment these files if you want to build the image from Dockerfile in repo
     #- internal/docker-build:
     #  dockerfile: Dockerfile
     #  image-name: my-new-image
