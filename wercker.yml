@@ -20,13 +20,18 @@ build:
         code: |
            node --version 
 
+    - script:
+        name: copy all files
+        code: cp . . "$WERCKER_OUTPUT_DIR"
+
 # build Dockerfile in repo, and push the image created to OCIR
 build-push-image:
   steps:
 
-    - internal/docker-build:
-      dockerfile: Dockerfile
-      image-name: my-new-image
+    #
+    #- internal/docker-build:
+    #  dockerfile: Dockerfile
+    #  image-name: my-new-image
 
     - internal/docker-push:
         username: $DOCKER_USERNAME
