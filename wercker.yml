@@ -24,10 +24,9 @@ build:
 build-push-image:
   steps:
 
-  # if you want to build Dockerfile in repo, uncomment this step
-  #  - internal/docker-build:
-  #    dockerfile: Dockerfile
-  #    image-name: my-new-image
+    - internal/docker-build:
+      dockerfile: Dockerfile
+      image-name: my-new-image
 
     - internal/docker-push:
         username: $DOCKER_USERNAME
