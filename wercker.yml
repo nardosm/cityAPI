@@ -32,7 +32,7 @@ build:
 build-push-image:
   steps:
 
-    # Uncomment these files if you want to build the image from Dockerfile in repo
+    # Uncomment these files if you want to build the image from Dockerfile in repository
     #- internal/docker-build:
     #  dockerfile: Dockerfile
     #  image-name: my-new-image
