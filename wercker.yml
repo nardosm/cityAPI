@@ -15,14 +15,14 @@ dev:
 build:
   # The steps that will be executed on build
   steps:
+    - npm-install
+    
     - script:
         name: get node version
         code: |
            node --version 
 
-    - script:
-        name: copy all files
-        code: cp package*.json "/pipeline/source"
+    
 
 # build Dockerfile in repo, and push the image created to OCIR
 build-push-image:
