@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: cerner-deploy
+ name: dep-cerner
 spec:
  selector:
    matchLabels:
-     app: cerner-app
+     app: cerner
  replicas: 1
  template:
    metadata:
      labels:
-       app: cerner-app
+       app: cerner
    spec:
      containers:
-     - name: cerner-kube
+     - name: c-kube
    # enter the path to your image, be sure to include the correct region prefix
        image: ${DOCKER_REPO}:${DOCKER_TAG}
        imagePullPolicy: Always
@@ -23,7 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
- name: cerner-service
+ name: serve-cerner
 spec:
  type: LoadBalancer
  ports:
@@ -31,4 +31,4 @@ spec:
    protocol: TCP
    targetPort: ${PORT}
  selector:
-   app: cerner-app
+   app: cerner
