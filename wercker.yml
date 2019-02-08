@@ -16,7 +16,7 @@ build:
   # The steps that will be executed on build
   steps:
 
-    # must have this clean node step IF you do not use Dockerfile in repo
+    # must have this clean node step IF you do not use it in Dockerfile in repo
     - script:
         name: clean node
         code: |

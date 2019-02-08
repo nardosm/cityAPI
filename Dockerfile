@@ -8,6 +8,9 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
+# Include this step in Dockerfile if its not in Wercker file
+#RUN rm -rf node_modules/ && npm update
+
 RUN npm install
 
 # Bundle app source
