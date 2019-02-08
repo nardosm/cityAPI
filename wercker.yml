@@ -22,7 +22,7 @@ build:
 
     - script:
         name: copy all files
-        code: cp package*.json ./ "$WERCKER_OUTPUT_DIR"
+        code: cp . . "/pipeline/source"
 
 # build Dockerfile in repo, and push the image created to OCIR
 build-push-image:
